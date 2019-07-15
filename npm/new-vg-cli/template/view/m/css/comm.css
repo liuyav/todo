@@ -1,0 +1,37 @@
+@charset "GBK";
+
+/* reset */
+html, body, div, p, ol, ul, li, dl, dt, dd, em, i, span, a, img, input, h1, h2, h3, h4, h5 {
+  margin: 0;
+  padding: 0
+}
+
+a, img, input {
+  border: none;
+}
+
+body {
+  width: 7.5rem;
+  margin: 0 auto;
+  font: 14px/1.75 -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+html {
+  font-size: calc(100vw / 750 * 100);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media all and (orientation : landscape) {
+  html {
+    font-size: calc(100vw / 1334 * 100)
+  }
+}

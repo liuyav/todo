@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body {background: #000}
+    canvas {background: url(img/bg3.jpg) no-repeat 0 0/100%;}
+  </style>
+</head>
+<body>
+  <canvas width="688" height="326"></canvas>
+  <script>
+    var oC = document.querySelector('canvas');
+    var oGc = oC.getContext('2d');
+
+    oGc.beginPath();
+    oGc.fillStyle = '#ddd';
+    oGc.fillRect(0, 0, oC.width, oC.height);
+    oGc.closePath();
+
+    oGc.globalCompositeOperation = 'destination-out';
+
+    var down = {
+      x: 0,
+      y: 0
+    }
+
+    var end = {
+      x: 0,
+      y: 0,
+    }
+
+    oC.onmousedown = function(ev) {
+
+      down.x = ev.pageX;
+      down.y = ev.pageY;
+      
+      document.onmousemove = function(ev) {
+
+        end.x = ev.pageX;
+        end.y = ev.pageY;
+
+        oGc.beginPath();
+        oGc.lineWidth = '20';
+        oGc.lineJoin = 'round';
+        oGc.strokeStyle  = '#000';
+        oGc.moveTo(down.x, down.y);
+        oGc.lineTo(end.x, end.y);
+        oGc.stroke();
+        oGc.closePath();
+
+        down.x = end.x;
+        down.y = end.y;
+      }
+
+      document.onmouseup = function() {
+        document.onmousedown = document.onmousemove = null;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 职责分离，处理链条可以动态组合
+    var chain1 = function(num) {
+      if (num > 0 && num <= 10) {
+        console.log('chain1')
+      } else {
+        return 'nextSuccessor';
+      }
+    }
+
+    var chain2 = function(num) {
+
+      if (num > 10 && num <=100) {
+        console.log('chain2')
+      } else {
+        return 'nextSuccessor';
+      }
+    }
+
+    var chain3 = function(num) {
+      if (num > 100 && num <= 1000) {
+        console.log('chain3')
+      } else {
+        console.log('处理范围之外');
+      }
+    }
+
+    Function.prototype.after = function( fn ){
+        var self = this;
+        return function(){
+            var ret = self.apply( this, arguments );
+            if ( ret === 'nextSuccessor' ){
+                return fn.apply( this, arguments );
+            }
+            return ret;
+        }
+    };
+
+    var chain = chain1.after( chain2 ).after( chain3 );
+
+    chain(9)
+    chain(90)
+    chain(900)
+    chain(9000)
+  </script>
+</body>
+</html>

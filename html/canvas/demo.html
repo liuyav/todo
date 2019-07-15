@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title><style>
+    body {
+      background-color: #000;
+    }
+    canvas {
+      background-color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <canvas width="600" height="600"></canvas>
+  <script>
+    var canvas = document.querySelector('canvas');
+    var ctx = canvas.getContext('2d');
+
+    ctx.beginPath();
+    ctx.lineWidth = '10';
+    ctx.strokeStyle = 'red';
+    ctx.moveTo(50, 0);
+    ctx.lineTo(50, 100);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.lineWidth = '5';
+    ctx.strokeStyle = 'blue';
+    ctx.moveTo(100, 0);
+    ctx.lineTo(100, 100);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.globalAlpha = .3;
+    ctx.translate(100, 0);
+    ctx.scale(.5, .5);
+    ctx.lineWidth = '10';
+    ctx.strokeStyle = 'red';
+    ctx.moveTo(50, 0);
+    ctx.lineTo(50, 100);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
+
+    ctx.beginPath();
+    ctx.lineWidth = '5';
+    ctx.strokeStyle = 'blue';
+    ctx.moveTo(200, 0);
+    ctx.lineTo(200, 100);
+    ctx.stroke();
+    ctx.closePath()
+
+
+    // 填充样式、路径变成局部作用域，使用beginpath、closepath
+    // 平移、缩放、旋转、全局透明度等变成局部作用域，使用save、restore
+
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(50, 110, 100, 100)
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = 'red';
+    ctx.fillRect(120, 160, 100, 100)
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
+    
+
+    /*
+     组合模式
+        source-atop:图形交集区域显示新绘制图形，图形交集区域与原区域的差集显示原区域，其他区域透明
+        source-in:图形交集区域显示新绘制图形，其他区域透明
+        source-out:图形交集区域与新绘制图形的差集显示新绘制图形，其他区域透明
+        source-over:新绘制图形覆盖在原图形之上，其他区域透明
+        destination-atop: 图形交集区域显示原图形，图形交集区域与新绘制图形的差集显示新绘制
+    */
+  </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body {
+      --size-w: 100px;
+      --size-h: 80px;
+      background-image: paint(draw);
+      width: var(--size-w);
+      height: var(--size-h);
+    }
+  </style>
+</head>
+<body>
+  <script>
+    // 加载
+    // localhost 或 http下
+    if ( 'paintWorklet' in CSS && 'registerProperty' in CSS && 'CSSUnitValue' in window) {
+      // 注册属性
+      CSS.registerProperty({ 
+        name: '--size-w',
+        syntax: '<length>',
+        initialValue: '100px'
+      });
+
+      CSS.registerProperty({ 
+        name: '--size-h',
+        syntax: '<length>',
+        initialValue: '80px'
+      });
+
+      // 加载模块
+      CSS.paintWorklet.addModule('paint01.js');
+    } else {
+      alert('你的浏览器不支持paintworklet')
+    }
+
+    
+  </script>
+</body>
+</html>

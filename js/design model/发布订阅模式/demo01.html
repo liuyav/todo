@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <a href="javascript:;" id="user1">用户A添加订阅</a>
+  <a href="javascript:;" id="user2">用户B添加订阅</a>
+  <a href="javascript:;" id="push">推送消息</a>
+  <a href="javascript:;" id="pushInTime">实时推送消息</a>
+  <a href="javascript:;" id="CancelPushInTime">取消推送消息</a><br>
+  <a href="javascript:;" id="user1cancel">用户A取消订阅</a>
+  <a href="javascript:;" id="user2cancel">用户B取消订阅</a>
+  <script>
+    
+
+    // 发布对象
+    function Public() {
+      // 存放订阅者
+      var This = this;
+      this.subscribers = [];
+
+      // 添加订阅者
+      this.addSubscriber = function(subscriber) {
+        // 判断订阅者是否已订阅
+        var isExist = this.subscribers.some(function(item) {
+          return item === subscriber
+        })
+        
+        // 没有订阅添加到订阅列表
+        if (!isExist) {
+          alert(subscriber.name + '订阅成功')
+          this.subscribers.push(subscriber)
+        } else {
+          alert(subscriber.name + '已订阅')
+        }
+
+        return this;
+      }
+
+      // 删除订阅者
+      this.delSubscriber = function(subscriber) {
+        this.subscribers.forEach(function(item, i) {
+          if (item === subscriber) {
+            This.subscribers.splice(i, 1)
+            alert(subscriber.name + '取消了订阅')
+          }
+        })
+      }
+
+
+      // 向订阅者发送消息
+      this.deliverMsg = function() {
+
+        if (!this.subscribers.length) {
+          alert('没有用户订阅');
+          return;
+        }
+
+        this.subscribers.forEach(function(fn) {
+          fn.showMsg();
+        })
+      }
+
+      // 实时推送消息
+      this.deliverMsgInTime = function() {
+        This.deliverMsgInTime.timer = setInterval(function() {
+          This.deliverMsg()
+        }, 3000)
+      }
+
+      // 取消实时推送消息
+      this.CancelDeliverMsgInTime = function() {
+        clearInterval(This.deliverMsgInTime.timer)
+      }
+    }
+
+    // 订阅者对象
+    function Subscribers(name) {
+      this.name = name;
+    }
+
+    Subscribers.prototype.showMsg = function() {
+      console.log(this.name + '111')
+    }
+
+    Subscribers.prototype.showMsg2 = function() {
+      console.log(this.name + '222')
+    }
+
+
+    // 订阅者
+    var subA = new Subscribers('A用户');
+    var subB = new Subscribers('B用户');
+  
+    // 订阅对象
+    var public = new Public();
+
+    // A订阅
+    document.querySelector('#user1').onclick = function() {
+      public.addSubscriber(subA)
+    }
+
+    // B订阅
+    document.querySelector('#user2').onclick = function() {
+      public.addSubscriber(subB)
+    }
+
+    // A取消订阅
+    document.querySelector('#user1cancel').onclick = function() {
+      public.delSubscriber(subA)
+    }
+
+    // B取消订阅
+    document.querySelector('#user2cancel').onclick = function() {
+      public.delSubscriber(subB)
+    }
+
+    document.querySelector('#push').onclick = function() {
+      // 推送消息
+      public.deliverMsg()
+    }
+
+    document.querySelector('#pushInTime').onclick = function() {
+      // 实时推送消息
+      public.deliverMsgInTime()
+    }
+
+    document.querySelector('#CancelPushInTime').onclick = function() {
+      // 取消推送消息
+      public.CancelDeliverMsgInTime()
+    }
+
+  </script>
+</body>
+</html>

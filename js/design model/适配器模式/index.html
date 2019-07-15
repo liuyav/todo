@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var a = {
+      log: function() {
+        console.log('a')
+      }
+    };
+
+    var b = {
+      log: function() {
+        console.log('b')
+      }
+    }
+
+    var c = {
+      print: function() {
+        console.log('c')
+      }
+    };
+
+    var cAdapt = {
+      log: function() {
+        return c.print()
+      }
+    }
+
+    var showLog = function(obj) {
+      return obj.log()
+    }
+
+    showLog(a)
+    showLog(b)
+    showLog(cAdapt)
+  </script>
+</body>
+</html>

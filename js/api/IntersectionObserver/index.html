@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div style="margin: 1000px 0; background-color: red; height: 200px;" class="scrollerFooter">132121</div>
+  <script src="intersection-observer.js"></script>
+  <script>
+    var intersectionObserver = new IntersectionObserver(function(entries) {
+
+      if (entries[0].intersectionRatio === 0) {
+        console.log('el 消失在可视区');
+      } else {
+        console.log('el 出现在可视区');
+      }
+
+    }, {
+      threshold: [0, 0.5, 1],
+      rootMargin: '30px 0px 20px'
+    });
+
+    intersectionObserver.observe(document.querySelector('.scrollerFooter'));
+  </script>
+</body>
+</html>

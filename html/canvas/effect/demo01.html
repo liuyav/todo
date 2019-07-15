@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body {background: #000}
+    canvas {background: url(img/bg.jpg);}
+  </style>
+</head>
+<body>
+  <canvas width="640" height="360"></canvas>
+  <script>
+    var oC = document.querySelector('canvas');
+    var oGc = oC.getContext('2d');
+
+    
+    function drawGray() {
+      var oImg = new Image();
+      oImg.addEventListener('load', function() {
+        oGc.drawImage(oImg, 0, 0);
+      })
+      oImg.src = 'img/bg2.png';
+    }
+    
+    drawGray();
+
+    var oImg2 = new Image();
+    oC.addEventListener('click', function() {
+      oImg2.addEventListener('load', function() {
+        // 绘制两个图不重叠的部分，换句话说，也就是将两个图重叠的部分透明
+        oGc.globalCompositeOperation = 'destination-out';
+        startScale();
+      })
+      oImg2.src = 'img/clear.png';
+    })
+
+    var speed = 0.01;
+    var num = 1;
+    var timer = null;
+
+    var w = oImg2.width;
+    var h = oImg2.height;
+
+    function startScale() {
+      timer = setInterval(function() {
+        
+        speed++;
+        w+=speed;
+        h+=speed;
+
+        oGc.drawImage(oImg2, oC.width/2-w/2, oC.height/2-h/2, w, h);
+      }, 30)
+    }
+    
+
+
+  </script>
+</body>
+</html>

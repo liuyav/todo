@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var a = {};
+    Object.defineProperty(a, 'name', {
+      'value': 123
+    })
+
+    var decr = Object.getOwnPropertyDescriptor(a, 'name')
+    //console.log(decr)
+
+    var b = {};
+    Object.defineProperties(b, {
+      'name': {
+        'value': 456
+      },
+      'age': {
+        'value': 18,
+        'enumerable': true
+      }
+    })
+
+    var nameDecr = Object.getOwnPropertyDescriptor(b, 'name');
+    var ageDecr = Object.getOwnPropertyDescriptor(b, 'age');
+    var names = Object.getOwnPropertyNames(b);
+    var keys = Object.keys(b)
+    //console.log(nameDecr.value)
+    //console.log(ageDecr.value)
+    //console.log(names);
+    //console.log(keys);
+
+    var c1 = {};
+    var c2 = {'a': 1, 'b': 1};
+    var c3 = {'b': 2}
+    Object.assign(c1, c2, c3);
+    Object.freeze(c1);
+    //console.log(c1)
+
+    var d = Object.create(c1, {
+      'c': {
+        'value': 3
+      }
+    })
+    //console.log(d);
+
+    function E() {
+      this.name = '1';
+      this.age = 18;
+    }
+
+    E.prototype.hi = function() {
+      alert(this.name);
+    };
+
+    var e = new E();
+    console.log( Object.getPrototypeOf(e) )
+
+    // 定义属性
+    //    1. Object.defineProperty(obj, prop, decr);
+    //    2. Object.defineProperties(obj, props);
+    // 取得属性描述
+    //    1. Object.getOwnPropertyDescriptor(obj, prop)
+    // 合并对象（拷贝继承）
+    //    1. Object.assign(target, obj1, obj2)
+    // 创建对象并指定原型（原型式继承）
+    //    1. Object.create(protype, props)
+    // 获取对象key值
+    //    1. Object.getOwnPropertyNames(obj)    // 包括不可枚举
+    //    2. Object.keys()                      // 只包括可枚举的属性值
+  </script>
+</body>
+</html>

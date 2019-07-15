@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>matrix_translate 平移矩阵</title>
+</head>
+<body>
+  <canvas width="500" height="500"></canvas>
+  <script src="js/lib.js"></script>
+  <script>
+    // 顶点着色器源代码
+    var vertexShaderSource = "" +
+      "attribute vec4 apos;" +
+      "uniform mat4 utrans;" +
+      "void main(){" +
+      " gl_Position = apos * utrans;" +
+      " gl_PointSize = 20.0;" +
+      "}";
+
+    // 片元着色器源代码
+    var fragmentShaderSource = "" +
+      "void main() {" +
+      " gl_FragColor = vec4(1.0, 0.2, 0.3, 1.0);" +
+      "}";
+
+    // 得到gl对象
+    var gl = document.querySelector('canvas').getContext('webgl');
+
+    // 初始化着色器
+    var program = initShader(gl, vertexShaderSource, fragmentShaderSource);
+
+    // 设置AttribLocation
+    var data = new Float32Array([
+      -.3, .3,
+      .3, .3,
+      0.0, -.3
+    ]);
+    setAttribLocation(gl, program, 'apos', data)
+
+    // 设置平移
+    var tX = 0.5;
+    var tY = 0.5;
+    glTranslate(gl, program, 'utrans', tX, tY);
+
+    // 设置清屏颜色
+    gl.clearColor(.5, .5, .5, 1.0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // 绘制平行四边形
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  </script>
+</body>
+</html>

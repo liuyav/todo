@@ -1,0 +1,13 @@
+{
+  "projectType": "移动专题",
+  "projectDir": "/cp/a20190603star/",
+  "separateUrl": "//game.gtimg.cn/images/zhuoyao/cp/a20190603star/",
+  "temDir": "/m-act",
+  "projectName": "a20190603star",
+  "projectDomain": "zhuoyao",
+  "projectBaseFile": true,
+  "siteType": "a20190603star",
+  "projectModules": [
+    "PTT统计代码"
+  ]
+}

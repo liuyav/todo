@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+  // var workStart = new Date().getTime();
+  // var w = new Worker('worker.js');
+
+  // w.postMessage({})
+
+  // w.onmessage = (res)=> {
+  //   //console.log(res.data.res)
+  //   var workEnd = new Date().getTime();
+  //   console.log('worker耗时：', (workEnd - workStart) + 'ms')
+  // }
+  
+
+  var mormalStart = new Date().getTime();
+  var a = 0;
+  for (var i = 0; i < 10000; i++) {
+    for (var j = 0; j < 10000; j++) {
+      a += i + j;
+    }
+  }
+  var mormalEnd = new Date().getTime();
+  console.log('正常耗时：', (mormalEnd - mormalStart) + 'ms')
+
+  </script>
+</body>
+</html>

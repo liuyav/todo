@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <!-- 使用link rel="import" 方式引入组件 -->
+  <link rel="import" href="./component.html">
+  <style>
+    select, option {
+      -webkit-appearance: none;
+    }
+    select {
+      width: 100px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    option {
+      background-color: #fff;
+      font-size: 30px;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <component-tag-name attr-name="aaa"></component-tag-name>
+  <select name="" id="">
+    <option value="菠萝">菠萝</option>
+  </select>
+  <script>
+    var tag = document.querySelector('component-tag-name')
+  </script>
+</body>
+</html>

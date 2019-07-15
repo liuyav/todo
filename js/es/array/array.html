@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // 使用ruduce扁平化数组
+    var arr3 = [1, [2, [3, [4, [5, 6]]]]];
+    function flatArray(arr) {
+      return arr.reduce(function(prev, next, index, arr) {
+        return prev.concat( Array.isArray(next) ? flatArray(next) : next );
+      }, [])
+    }
+
+    //console.log( flatArray(arr3) )
+
+    //console.log( arr3.toString().split(',').map((v) => +v))
+
+    //console.log( arr3.flat(Infinity))
+
+    var arr = [
+      {
+        id: 1,
+        name: 'xx',
+        children: [
+          {
+            id: 2,
+            name: 'xx',
+            children: [
+              {
+                id: 3,
+                name: 'xx'
+              },
+            ],
+          },
+          {
+            id: 4,
+            name: 'xx',
+          }
+        ]
+      },
+      {
+        id: 5,
+        name: 'xx'
+      }
+    ]
+
+    var newArr = [];
+    function flatObj(arr) {
+      for (let item of arr.values()) {
+        if ( Array.isArray(item.children) ) {
+          newArr.push({
+            id: item.id,
+            name: item.name
+          })
+          flatObj( item.children )
+        } else {
+          newArr.push(item)
+        }
+      }
+    }
+    flatObj(arr)
+
+    console.log(newArr)
+  </script>
+</body>
+</html>

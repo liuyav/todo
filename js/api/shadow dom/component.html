@@ -1,0 +1,68 @@
+<!-- 组件模板：模板内的元素样式不会被外部污染 -->
+<template>
+
+  <link rel="stylesheet" href="./tp.css">
+
+  <p>自定义p标签</p>
+
+</template>
+
+<script>
+  // 获取组件所在的文档节点
+  const componentDocument = document.currentScript.ownerDocument;
+
+  class Component extends HTMLElement {
+
+    // 组件静态属性
+    static get TAG_NAME() {
+      return 'component-tag-name';
+    };
+
+    constructor() {
+
+      super();
+
+      // 获取 shadow dom
+      const shadow = this.attachShadow({ mode: 'closed' });
+
+      // 克隆模板
+      const content = componentDocument.querySelector('template').content.cloneNode(true);
+
+      // 添加到 shadow dom 中去
+      shadow.appendChild(content);
+
+      // 给 shadow dom 添加交互事件
+      shadow.querySelector('p').addEventListener('click', function() {
+        console.log('click')
+      }, false)
+
+      // 获取组件属性值
+      console.log( this.getAttribute('attr-name') )
+    }
+
+    // 当 custom element首次被插入文档DOM时，被调用
+    connectedCallback() {
+      console.log(1)
+    }
+
+    // 当 custom element从文档DOM中删除时，被调用。
+    disconnectedCallback() {
+      console.log(2)
+    }
+
+    // 当 custom element被移动到新的文档时，被调用。
+    adoptedCallback() {
+      console.log(3)
+    }
+
+    // custom element增加、删除、修改自身属性时，被调用。
+    attributeChangedCallback() {
+      console.log(4)
+    }
+  }
+
+  // 组件注册
+  //   1. 组件名字
+  //   2. 组件构造类
+  customElements.define(Component.TAG_NAME, Component);
+</script>

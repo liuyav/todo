@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var lever = {
+      's': function(money) {
+        return money * 4
+      },
+      'a': function(money) {
+        return money * 3
+      },
+      'b': function(money) {
+        return money * 2
+      }
+    }
+
+    var calcLever = function(money, score) {
+      return lever[score](money);
+    }
+
+    console.log( calcLever(2000, 's') )
+    console.log( calcLever(1000, 'a') )
+  </script>
+</body>
+</html>

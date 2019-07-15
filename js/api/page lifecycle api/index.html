@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <a href="//www.baidu.com" target="_blank">link</a>
+  <script>
+    var state = '';
+
+    /*setInterval(function() {
+      // 运行在后台或者离开页面，此时页面不可见
+      if (document.visibilityState === 'hidden') {
+        state = 'hidden';
+        console.log('页面状态:' + state)
+        return;
+      }
+      // 页面可见并且有焦点
+      if (document.hasFocus()) {
+        state = 'active';
+        console.log('页面状态:' + state)
+        return;
+      }
+
+      // 页面可见没有焦点
+      state = 'passive';
+      console.log('页面状态:' + state)
+    }, 1000)*/
+
+    document.onfreeze = function() {
+      state = 'freeze';
+    }
+
+    document.onresume = function() {
+      state = 'resume';
+    }
+
+    // 加载网页时候触发一次
+    window.onpageshow = function(event) {
+      console.log('pageshow')
+    }
+
+    // 离开网页时候触发，必须 history 发生变化
+    window.onpagehide = function() {
+      console.log('pagehide');
+      localstorage.setItem('aaa', 1)
+    }
+
+    // window.onfocus = function() {
+    //   console.log('focus');
+    // }
+
+    // window.onblur = function() {
+    //   console.log('blur');
+    // }
+
+    // // 页面可视状态发生变化时候触发（离开页面或者运行在后台）
+    // document.onvisibilitychange = function() {
+    //   console.log('visibilitychange');
+    // }
+
+    // window.onbeforeunload = function() {
+    //   alert('beforeunload');
+    // }
+
+    // document.onunload = function() {
+    //   console.log('unload');
+    // }
+
+    // 页面生命周期
+    // active（可见、有焦点、ui更新、未卸载）（页面正常浏览情况）
+    // passive（可见、没有焦点、ui更新、未卸载）（页面多个窗口的情况）
+    // hidden（不可见、没有焦点、ui不再更新、未卸载）（最小化窗口情况）
+    // terminated（不可见、没有焦点、ui不再更新、页面卸载）（用户主动关闭或者在同一窗口下前往其他页面）
+    // frozen（不可见、没有焦点、ui周期性更新、未卸载）（处于active或hidden阶段的页面用户长时间没有操作）
+    // discarded（不可见、没有焦点、ui不更新、未卸载）（长时间处于frozen阶段或passive阶段）
+    // 
+    // 监听生命周期变化
+    //    加载网页时触发 pageshow（有可能是全新的页面加载，也可能是从缓存中获取的页面）
+    //    同页面进入其他页面 pagehide（浏览器的 History 记录必须发生变化）
+    //    焦点变化 focus、blur
+    //    可见状态变化（active、hidden、terminated） visibilitychange
+    //    进入冻结阶段 frozen（刚进入冻结阶段500ms内可以复用已打开的网络连接，不能发起新的网络连接）
+    //    离开冻结阶段 resume（网页离开 Frozen 阶段，变为 Active / Passive / Hidden 阶段时触发）
+    //    页面卸载前触发 beforeunload（事件发生时，文档仍然可见，此时卸载仍可取消。经过这个事件，网页进入 Terminated 状态）
+    //    页面卸载 unload（页面正在卸载时触发。经过这个事件，网页进入 Terminated 状态。）
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <p contenteditable="true" class="p1">1111111111</p>
+  <p contenteditable="true" class="p2">2222222222</p>
+  <p contenteditable="true" class="p3">3333333333</p>
+  <p contenteditable="true" class="p4">4444444444</p>
+  
+  <script>
+    var aP = document.querySelectorAll('p');
+
+    var observer = new MutationObserver(function(mutations, observer) {
+      console.log(mutations)
+    })
+
+    observer.observe(document.body, {
+      attributes: true,
+      // characterData: true,
+      // childList: true,
+      // subtree: true,
+      // attributeOldValue: true,
+      // characterDataOldValue: true
+    })
+
+  </script>
+</body>
+</html>
