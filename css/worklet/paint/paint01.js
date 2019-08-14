@@ -7,11 +7,13 @@ class bg {
     // ctx 画布对象（并不是和canvas下的画笔对象完全一致，文本渲染方法不可用）
     // geometry 指定宽高
     // properties 获取自定义属性
-    console.log(ctx)
+    console.log('ctx', ctx)
 
-    console.log(geometry)
+    ctx.fillRect(0, 0, 100, 100)
+
+    console.log('geometry', geometry)
     
-    console.log(properties);
+    console.log('properties', properties);
     console.log(properties.get('--size-w'));
     console.log(properties.get('--size-h'));
   }

@@ -8,17 +8,6 @@
 </head>
 <body>
   <script>
-  // var workStart = new Date().getTime();
-  // var w = new Worker('worker.js');
-
-  // w.postMessage({})
-
-  // w.onmessage = (res)=> {
-  //   //console.log(res.data.res)
-  //   var workEnd = new Date().getTime();
-  //   console.log('worker耗时：', (workEnd - workStart) + 'ms')
-  // }
-  
 
   var mormalStart = new Date().getTime();
   var a = 0;
@@ -30,6 +19,19 @@
   var mormalEnd = new Date().getTime();
   console.log('正常耗时：', (mormalEnd - mormalStart) + 'ms')
 
+
+  var workStart = new Date().getTime();
+  var w = new Worker('worker.js');
+
+  w.postMessage({})
+
+  w.onmessage = (res)=> {
+    //console.log(res.data.res)
+    var workEnd = new Date().getTime();
+    console.log('worker耗时：', (workEnd - workStart) + 'ms')
+  }
+  
   </script>
+
 </body>
 </html>

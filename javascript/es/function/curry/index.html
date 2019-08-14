@@ -72,6 +72,63 @@
     var step3 = step2(3);
     console.log('step3计算结果：'+res)
 
+    // 提前返回、延迟执行（可以避免每次都会走一次if else判断）
+    var addEvent = (function() {
+        if(window.addEventListener) {
+            return function(el, type, fn, capture) {
+                el.addEventListener(type, function(e) {
+                    fn.call(el, e);
+                }, capture);
+            }
+        }else {
+            return function(ele, type, fn) {
+                el.attachEvent('on' + type, function(e) {
+                    fn.call(el, e);
+                })
+            }
+        }
+    })()
+
+    function curry3(fn) {
+      var args = Array.prototype.slice.call(arguments, 1);
+      console.log(args, fn.length);
+      return function() {
+          var newArgs = args.concat(Array.prototype.slice.call(arguments));
+          console.log(newArgs);
+          return fn.apply(this, newArgs);
+      }
+    }
+
+    function multiFn(a, b, c, d) {
+        return a * b * c * d;
+    }
+    var multi = curry3(multiFn, 5, 6);
+    multi(2);
+
+
+    // 不足：事先要知道 fn.length
+    function curry4(fn, args) {
+      var length = fn.length;
+      var args = args || [];
+
+      return function() {
+        var newArgs = args.concat(Array.prototype.slice.call(arguments));
+
+        if (newArgs.length < length) {
+          return curry4.call(this, fn, newArgs);
+        } else {
+          return fn.apply(this, newArgs);
+        }
+      }
+    }
+
+    var multi2 = curry4(multiFn);
+    console.log( multi2(2)(3)(4,5) )
+    console.log( multi2(2)(3,4,5) )
+    console.log( multi2(2,3)(4,5) )
+    console.log( multi2(2,3,4,5) )
+
+
   </script>
 </body>
 </html>
