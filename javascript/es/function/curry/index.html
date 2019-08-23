@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>curry 函数</title>
+  <title>curry 鍑芥暟</title>
 </head>
 <body>
   <script>
     
-    // 1. 部分求值、延迟计算、提高适用性
+    // 1. 閮ㄥ垎姹傚€笺€佸欢杩熻绠椼€佹彁楂橀€傜敤鎬�
     function curry(fn, ...args) {
 
       var args = args || [];
@@ -17,9 +17,9 @@
 
       return function(...reset) {
 
-        if (reset.length === 0) { // 没有参数，调用计算函数
+        if (reset.length === 0) { // 娌℃湁鍙傛暟锛岃皟鐢ㄨ绠楀嚱鏁�
           return fn.apply(self, args)
-        } else { // 传递的还有参数，递归调用自身收集参数
+        } else { // 浼犻€掔殑杩樻湁鍙傛暟锛岄€掑綊璋冪敤鑷韩鏀堕泦鍙傛暟
           args.push(...reset)
           return curry.call(self, fn, ...args)
         }
@@ -40,20 +40,20 @@
       })
     }
 
-    // 部分求值
+    // 閮ㄥ垎姹傚€�
     console.log( curry(add)(1)(2)(3)() )
     console.log( curry(add, 1, 2, 3)() )
     console.log( curry(add, 1, 2)(3)() )
     console.log( curry(add, 1)(2, 3)() )
 
-    // 提高适用性
+    // 鎻愰珮閫傜敤鎬�
     console.log( curry(square)(1)(2)(3)() )
     console.log( curry(square, 1, 2, 3)() )
     console.log( curry(square, 1, 2)(3)() )
     console.log( curry(square, 1)(2, 3)() )
 
 
-    // 延迟计算
+    // 寤惰繜璁＄畻
     var res = 0;
     function curry2(x) {
       res += x;
@@ -66,13 +66,13 @@
     }
 
     var step1 = curry2(1)
-    console.log('step1计算结果：'+res)
+    console.log('step1璁＄畻缁撴灉锛�'+res)
     var step2 = step1(2);
-    console.log('step2计算结果：'+res)
+    console.log('step2璁＄畻缁撴灉锛�'+res)
     var step3 = step2(3);
-    console.log('step3计算结果：'+res)
+    console.log('step3璁＄畻缁撴灉锛�'+res)
 
-    // 提前返回、延迟执行（可以避免每次都会走一次if else判断）
+    // 鎻愬墠杩斿洖銆佸欢杩熸墽琛岋紙鍙互閬垮厤姣忔閮戒細璧颁竴娆f else鍒ゆ柇锛�
     var addEvent = (function() {
         if(window.addEventListener) {
             return function(el, type, fn, capture) {
@@ -106,7 +106,7 @@
     multi(2);
 
 
-    // 不足：事先要知道 fn.length
+    // 涓嶈冻锛氫簨鍏堣鐭ラ亾 fn.length
     function curry4(fn, args) {
       var length = fn.length;
       var args = args || [];
